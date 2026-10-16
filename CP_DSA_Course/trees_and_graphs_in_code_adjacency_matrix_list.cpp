@@ -13,14 +13,19 @@ int main()
         graph[v1].push_back({v2,wt});
         graph[v2].push_back({v1,wt});
     }
-    for (int i = 1; i <= n; i++)
+    for (int i = 1; i <= N; i++)
+{
+    if (graph[i].empty())
+        continue;
+
+    cout << "Node " << i << ": ";
+
+    for (auto edge : graph[i])
     {
-        cout << "Node " << i << ": ";
-        for (auto edge : graph[i])
-        {
-            cout << "(" << edge.first << ", " << edge.second << ") ";
-        }
-        cout << endl;
+        cout << "(" << edge.first << ", " << edge.second << ") ";
     }
+
+    cout << endl;
+}
     return 0;
 }
