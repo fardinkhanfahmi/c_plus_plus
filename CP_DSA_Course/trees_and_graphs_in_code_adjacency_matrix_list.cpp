@@ -17,7 +17,7 @@ int main()
 {
     if (graph[i].empty())
         continue;
-
+        
     cout << "Node " << i << ": ";
 
     for (auto edge : graph[i])
