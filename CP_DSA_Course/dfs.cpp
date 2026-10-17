@@ -2,7 +2,7 @@
 using namespace std;
 
 const int N = 1e5 + 10;
-
+set<int>s;
 vector<int> g[N];
 bool vis[N];
 
@@ -12,7 +12,6 @@ void dfs(int vertex) {
      **/
     cout << vertex << endl;
     vis[vertex] = true;
-
     for (int child : g[vertex]) {
         cout << "par " << vertex << ", child " << child << endl;
         if (vis[child]) continue;
