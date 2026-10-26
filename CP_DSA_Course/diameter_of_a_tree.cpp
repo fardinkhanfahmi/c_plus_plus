@@ -20,7 +20,15 @@ void dfs(int vertex,int c) {
          *  entering the child node
          **/
         dfs(child,c+1);
-        if(forward_length[vertex]<=forward_length[child]+1){
+        if(forward_length[vertex]<forward_length[child]+1 && vertex==1){
+            d1=max(d1,forward_length[vertex]);
+            forward_length[vertex]=forward_length[child]+1;
+
+        }
+        else if(vertex==1 && d1<forward_length[child]+1){
+            d1=max(d1,forward_length[child]+1);
+        }
+        else if(forward_length[vertex]<=forward_length[child]+1){
             forward_length[vertex]=forward_length[child]+1;
         }
         /** Take action on child
@@ -50,16 +58,16 @@ int main() {
     {
         cout<<"forward length of "<<i<<" is "<<forward_length[i]<<endl;
         cout<<"backward length of "<<i<<" is "<<backward_length[i]<<endl;
-        if(d1<backward_length[i]){
-            d2=max(d1,d2);
-            d1=backward_length[i];
-            cout<<"d1 is "<<d1<<endl;
-        }
-        else if(d2<backward_length[i]){
-            d2=backward_length[i];
-            cout<<"d2 is "<<d2<<endl;
-        }
+        // if(d1<backward_length[i]){
+        //     d2=max(d1,d2);
+        //     d1=backward_length[i];
+        //     cout<<"d1 is "<<d1<<endl;
+        // }
+        // else if(d2<backward_length[i]){
+        //     d2=backward_length[i];
+        //     cout<<"d2 is "<<d2<<endl;
+        // }
     }
-    cout<<"Diameter of the tree is "<<d1+d2<<endl;
+    cout<<"Diameter of the tree is "<<d1+forward_length[1]<<endl;
     return 0;
 }
