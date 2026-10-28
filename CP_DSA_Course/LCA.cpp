@@ -1,50 +1,63 @@
+
 #include <bits/stdc++.h>
 using namespace std;
 
 const int N = 1e5 + 10;
 
 vector<int> g[N];
-bool vis[N];
+int parent[N];
+int depth[N];
 
-void dfs(int vertex) {
-    /** Take action on vertex after entering
-     *  the vertex
-     **/
-    cout << vertex << endl;
-    vis[vertex] = true;
+void dfs(int vertex, int par) {
+    parent[vertex] = par;
 
     for (int child : g[vertex]) {
-        cout << "par " << vertex << ", child " << child << endl;
-        if (vis[child]) continue;
-        
-        /** Take action on child before
-         *  entering the child node
-         **/
-        dfs(child);
-        /** Take action on child
-         *  after exiting child node
-         **/
+        if (child == par) continue;
+
+        depth[child] = depth[vertex] + 1;
+        dfs(child, vertex);
     }
-    /** Take action on vertex before
-     *  exiting the vertex
-     **/
+}
+
+int lca(int a, int b) {
+    // Bring both vertices to the same depth
+    while (depth[a] > depth[b]) {
+        a = parent[a];
+    }
+
+    while (depth[b] > depth[a]) {
+        b = parent[b];
+    }
+
+    // Move both vertices upward until they meet
+    while (a != b) {
+        a = parent[a];
+        b = parent[b];
+    }
+
+    return a;
 }
 
 int main() {
-    int n, m;
-    cin >> n >> m;
-    
-    // CORRECTED: Loop runs 'm' times based on input, not 9
-    for (int i = 0; i < m; ++i) {
-        int v1, v2;
-        cin >> v1 >> v2;
-        g[v1].push_back(v2);
-        g[v2].push_back(v1);
+    int n;
+    cin >> n;
+
+    // Input n-1 edges of the tree
+    for (int i = 0; i < n - 1; i++) {
+        int u, v;
+        cin >> u >> v;
+
+        g[u].push_back(v);
+        g[v].push_back(u);
     }
-    
-    // Example: Start DFS from node 1
-    // (This line wasn't visible in the screenshots, but is needed to run the code)
-    dfs(1);
+
+    depth[1] = 0;
+    dfs(1, 0);  // Root the tree at vertex 1
+
+    int a, b;
+    cin >> a >> b;
+
+    cout << lca(a, b) << '\n';
 
     return 0;
 }
