@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <deque>
-
 using namespace std;
 
 const int N = 1e5 + 5; // Assuming a reasonable size based on the INF constant
