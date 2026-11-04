@@ -48,7 +48,6 @@ int main() {
         g[x].push_back({y, 0});
         g[y].push_back({x, 1});
     }
-
     cout << bfs() << endl;
     return 0;
 }
