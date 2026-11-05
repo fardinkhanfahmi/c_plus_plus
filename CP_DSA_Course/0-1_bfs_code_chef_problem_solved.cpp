@@ -22,7 +22,6 @@ int bfs() {
         for (auto child : g[cur_v]) {
             int child_v = child.first;
             int wt = child.second;
-
             if (lev[cur_v] + wt < lev[child_v]) {
                 lev[child_v] = lev[cur_v] + wt;
 
